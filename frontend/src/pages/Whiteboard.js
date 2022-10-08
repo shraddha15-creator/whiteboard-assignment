@@ -3,8 +3,7 @@ import jwt from "jsonwebtoken";
 import CanvasDraw from "@win11react/react-canvas-draw";
 
 export const Whiteboard = () => {
-	const [quote, setQuote] = useState("");
-	const [tempQuote, setTempQuote] = useState("");
+	const [user, setUser] = useState("");
 	const initialColor = "black";
 	const [color, setColor] = useState(initialColor);
 	const canvasRef = useRef(null);
@@ -15,10 +14,12 @@ export const Whiteboard = () => {
 				"x-access-token": localStorage.getItem("token"),
 			},
 		});
+		console.log("whiteboard 18 req", req);
 		const data = await req.json();
-		console.log(data);
+		console.log("whiteboard DATA NEW", data);
 		if (data.status === "ok") {
-			setQuote(data.quote);
+			setUser(data.name);
+			setColor(data.color);
 		} else {
 			alert(data.error);
 		}
@@ -37,30 +38,9 @@ export const Whiteboard = () => {
 		}
 	}, []);
 
-	async function updateQuote(e) {
-		e.preventDefault();
-		const req = await fetch("http://localhost:8080/api/whiteboard", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"x-access-token": localStorage.getItem("token"),
-			},
-			body: JSON.stringify({
-				quote: tempQuote,
-			}),
-		});
-		const data = await req.json();
-		console.log(data);
-		if (data.status === "ok") {
-			setQuote(tempQuote);
-			setTempQuote("");
-		} else {
-			alert(data.error);
-		}
-	}
-
 	const handleExport = () => {
 		const d = canvasRef.current.canvasContainer.children[1].toDataURL();
+		console.log("canvas handle ecort", d);
 		const w = window.open("about:blank", "image from canvas");
 		const img = require("../assets/bg.png");
 		w.document.write(
@@ -75,20 +55,13 @@ export const Whiteboard = () => {
 	return (
 		<div>
 			<h2>Dashboard</h2>
-			<p>Your quote: {quote || "No quote found"}</p>
-			<form onSubmit={updateQuote}>
-				<input
-					type="text"
-					placeholder="Quote"
-					value={tempQuote}
-					onChange={(e) => setTempQuote(e.target.value)}
-				/>
-				<button type="submit">Update quote</button>
-			</form>
+			<p>{user}</p>
+			<p>Your quote: {color || "No quote found"}</p>
 			<input
 				type="color"
 				value={color}
 				onChange={(e) => setColor(e.target.value)}
+				disabled
 			/>
 			<CanvasDraw
 				style={{

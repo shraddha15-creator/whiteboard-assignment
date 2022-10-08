@@ -15,12 +15,20 @@ app.post("/api/register", async (req, res) => {
 	console.log(req.body);
 	try {
 		const newPassword = await bcrypt.hash(req.body.password, 10);
-		await User.create({
+		const getMyColor = () => {
+			let n = (Math.random() * 0xfffff * 1000000).toString(16);
+			return "#" + n.slice(0, 6);
+		};
+		console.log(getMyColor(), "getMyColor");
+		const userData = await User.create({
 			name: req.body.name,
 			email: req.body.email,
 			password: newPassword,
+			color: getMyColor(),
 		});
+		console.log("line 28 backend", userData);
 		res.json({ status: "ok" });
+		console.log("line 31 backend", res.body);
 	} catch (err) {
 		console.log(err);
 		res.json({ status: "error", error: "Duplicate email" });
@@ -29,11 +37,14 @@ app.post("/api/register", async (req, res) => {
 
 // login
 app.post("/api/login", async (req, res) => {
-	console.log(req.body);
+	console.log("index 39", req.body);
 
 	const user = await User.findOne({
 		email: req.body.email,
 	});
+	console.log("====================================");
+	console.log(user);
+	console.log("====================================");
 
 	if (!user) {
 		return { status: "error", error: "Invalid login" };
@@ -53,7 +64,7 @@ app.post("/api/login", async (req, res) => {
 			"secret123"
 		);
 
-		return res.json({ status: "ok", user: token });
+		return res.json({ status: "ok", user: token, color: user.color });
 	} else {
 		return res.json({ status: "error", user: false });
 	}
@@ -68,7 +79,7 @@ app.get("/api/whiteboard", async (req, res) => {
 		const email = decoded.email;
 		const user = await User.findOne({ email: email });
 
-		return res.json({ status: "ok", quote: user.quote });
+		return res.json({ status: "ok", color: user.color });
 	} catch (error) {
 		console.log(error);
 		res.json({ status: "error", error: "invalid token" });

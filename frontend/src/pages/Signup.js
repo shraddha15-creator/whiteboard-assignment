@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Signup = () => {
 	const [name, setName] = useState("");
@@ -41,6 +42,7 @@ export const Signup = () => {
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 				<button type="submit">Register</button>
+				<Link to="/">Login </Link>
 			</form>
 		</div>
 	);
