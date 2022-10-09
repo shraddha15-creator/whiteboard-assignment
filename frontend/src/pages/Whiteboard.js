@@ -47,7 +47,7 @@ export const Whiteboard = () => {
 	const handleExport = () => {
 		base16ImageData = canvasRef.current.canvasContainer.children[1].toDataURL();
 		const w = window.open("about:blank", "image from canvas");
-		const img = require("../assets/bg2.png");
+		const img = require("../assets/bg-transperent.png");
 		w.document.write(
 			"<img src='" +
 				base16ImageData +
@@ -75,10 +75,10 @@ export const Whiteboard = () => {
 			<div className="whiteboard-container">
 				<div>
 					<CanvasDraw
-						style={{
-							boxShadow:
-								"0 13px 27px -5px rgba(50, 50, 93, 0.25),    0 8px 16px -8px rgba(0, 0, 0, 0.3)",
-						}}
+						// style={{
+						// 	boxShadow:
+						// 		"0 13px 27px -5px rgba(50, 50, 93, 0.25),    0 8px 16px -8px rgba(0, 0, 0, 0.3)",
+						// }}
 						brushRadius={2}
 						canvasWidth={1000}
 						canvasHeight={600}
