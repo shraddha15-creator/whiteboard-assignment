@@ -5,6 +5,23 @@ const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+	cors: {
+		origin: "*",
+		method: ["GET", "POST"],
+		credentials: true,
+	},
+});
+
+io.on("connection", (socket) => {
+	console.log("User connected on next: ", socket.id, "HERE");
+
+	socket.on("canvas-data", (data) => {
+		io.emit("canvas-data", data);
+		// console.log("payload", data);
+	});
+});
 
 app.use(cors());
 app.use(express.json());
@@ -12,7 +29,7 @@ app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/whiteboard");
 // signup
 app.post("/api/register", async (req, res) => {
-	console.log(req.body);
+	console.log("index 15", req.body);
 	try {
 		const newPassword = await bcrypt.hash(req.body.password, 10);
 		const getMyColor = () => {
@@ -21,17 +38,18 @@ app.post("/api/register", async (req, res) => {
 		};
 		console.log(getMyColor(), "getMyColor");
 		const userData = await User.create({
-			name: req.body.name,
+			firstname: req.body.name.firstname,
+			lastname: req.body.name.lastname,
 			email: req.body.email,
 			password: newPassword,
 			color: getMyColor(),
 		});
 		console.log("line 28 backend", userData);
 		res.json({ status: "ok" });
-		console.log("line 31 backend", res.body);
+		console.log("line 32 backend", res.body);
 	} catch (err) {
 		console.log(err);
-		res.json({ status: "error", error: "Duplicate email" });
+		res.json({ status: "error", error: err.message });
 	}
 });
 
@@ -79,7 +97,11 @@ app.get("/api/whiteboard", async (req, res) => {
 		const email = decoded.email;
 		const user = await User.findOne({ email: email });
 
-		return res.json({ status: "ok", color: user.color });
+		return res.json({
+			status: "ok",
+			color: user.color,
+			username: user.firstname,
+		});
 	} catch (error) {
 		console.log(error);
 		res.json({ status: "error", error: "invalid token" });
@@ -102,8 +124,9 @@ app.post("/api/whiteboard", async (req, res) => {
 	}
 });
 
-app.listen(8080, () => {
+var server_port = process.env.PORT || 8080;
+http.listen(server_port, () => {
 	console.log("====================================");
-	console.log("server started on 8080");
+	console.log(`server started on ${server_port}`);
 	console.log("====================================");
 });

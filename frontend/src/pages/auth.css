@@ -1,0 +1,50 @@
+.auth-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 20%;
+}
+
+.auth-title,.forgot-pw, .signup-link{
+  font-size: 1.5rem;
+  font-weight: 500;
+  color:#4F00C1;
+}
+
+.auth-btn{
+  background-color: #4F00C1;
+  border: none;
+  padding: .5rem;
+  color: white;
+  font-size: .8rem;
+  border-radius: 3px;
+}
+
+.forgot-pw, .signup-link{
+  font-size: .8rem;
+  text-align: center;
+  margin-left: .2rem;
+}
+
+.auth-input{
+  /* width: 100%; */
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 3px;
+  padding: .5rem;
+}
+
+.no-acc{
+  font-size: .8rem;
+  font-weight: 500;
+}

@@ -5,7 +5,7 @@ import { Signup } from "./pages/Signup";
 import { Whiteboard } from "./pages/Whiteboard";
 function App() {
 	return (
-		<div className="">
+		<div className="app-container">
 			<Routes>
 				<Route path="/" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />

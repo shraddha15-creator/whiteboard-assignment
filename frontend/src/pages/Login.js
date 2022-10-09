@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./auth.css";
 
 export const Login = () => {
 	const [email, setEmail] = useState("");
@@ -28,24 +29,36 @@ export const Login = () => {
 	}
 
 	return (
-		<div className="">
-			<h2>Login</h2>
+		<div className="auth-container">
+			<p className="auth-title">Log in to continue</p>
 			<form onSubmit={loginUser}>
 				<input
+					className="auth-input"
 					type="email"
-					placeholder="email"
+					placeholder="Email"
+					required
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 				<input
+					className="auth-input"
 					type="password"
-					placeholder="password"
+					placeholder="Password"
+					required
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<button type="submit">Login</button>
+				<p className="forgot-pw">Forgot Password?</p>
+				<button type="submit" className="auth-btn">
+					Log in
+				</button>
 			</form>
-			<Link to="/signup">Register </Link>
+			<span className="no-acc">
+				Don't have account?
+				<Link to="/signup" className="signup-link">
+					Register{" "}
+				</Link>
+			</span>
 		</div>
 	);
 };
