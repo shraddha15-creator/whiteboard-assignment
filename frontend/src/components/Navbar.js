@@ -5,7 +5,7 @@ import "./navbar.css";
 export const Navbar = ({ color, setColor, user }) => {
 	return (
 		<div className="navbar">
-			<img src={BrandLogo} />
+			<img src={BrandLogo} alt="brand-logo" />
 			<div className="user-color-name">
 				<input
 					type="color"

@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import "./pages.css";
 import { Panel } from "../components/Panel";
 import { Navbar } from "../components/Navbar";
+import { PrivateRoute } from "../utils/PrivateRoute";
 
 let socket = io.connect("http://localhost:8080");
 
@@ -20,7 +21,6 @@ export const Whiteboard = () => {
 			},
 		});
 		const data = await req.json();
-		console.log(data);
 		if (data.status === "ok") {
 			setUser(data.username);
 			setColor(data.color);
@@ -70,6 +70,7 @@ export const Whiteboard = () => {
 
 	return (
 		<div>
+			<PrivateRoute />
 			<Navbar color={color} setColor={setColor} user={user} />
 			<div className="whiteboard-container">
 				<div>

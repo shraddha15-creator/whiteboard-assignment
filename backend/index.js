@@ -19,7 +19,6 @@ io.on("connection", (socket) => {
 
 	socket.on("canvas-data", (data) => {
 		io.emit("canvas-data", data);
-		// console.log("payload", data);
 	});
 });
 
@@ -60,12 +59,9 @@ app.post("/api/login", async (req, res) => {
 	const user = await User.findOne({
 		email: req.body.email,
 	});
-	console.log("====================================");
-	console.log(user);
-	console.log("====================================");
 
 	if (!user) {
-		return { status: "error", error: "Invalid login" };
+		return res.json({ status: "error", error: "Invalid login" });
 	}
 
 	const isPasswordValid = await bcrypt.compare(
@@ -84,7 +80,7 @@ app.post("/api/login", async (req, res) => {
 
 		return res.json({ status: "ok", user: token, color: user.color });
 	} else {
-		return res.json({ status: "error", user: false });
+		return res.json({ status: "error", error: "No user found", user: false });
 	}
 });
 
@@ -102,22 +98,6 @@ app.get("/api/whiteboard", async (req, res) => {
 			color: user.color,
 			username: user.firstname,
 		});
-	} catch (error) {
-		console.log(error);
-		res.json({ status: "error", error: "invalid token" });
-	}
-});
-
-// whiteboard POST
-app.post("/api/whiteboard", async (req, res) => {
-	const token = req.headers["x-access-token"];
-
-	try {
-		const decoded = jwt.verify(token, "secret123");
-		const email = decoded.email;
-		await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
-
-		return res.json({ status: "ok" });
 	} catch (error) {
 		console.log(error);
 		res.json({ status: "error", error: "invalid token" });

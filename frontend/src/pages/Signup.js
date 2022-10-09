@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
+	const navigate = useNavigate();
 	const [name, setName] = useState({ firstname: "", lastname: "" });
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -17,6 +19,12 @@ export const Signup = () => {
 		});
 		const data = await response.json();
 		console.log(data);
+		if (data.status === "ok") {
+			toast.success("Signed up Successfully");
+			navigate("/whiteboard");
+		} else if (data.status === "error") {
+			toast.warn("User already exist");
+		}
 	}
 
 	return (

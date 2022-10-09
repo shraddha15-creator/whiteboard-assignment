@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 import "./auth.css";
 
 export const Login = () => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -16,16 +18,15 @@ export const Login = () => {
 			body: JSON.stringify({ email, password }),
 		});
 		const data = await response.json();
-
 		if (data.user) {
 			localStorage.setItem("token", data.user);
-			alert("login successful");
-			window.location.href = "/whiteboard";
-		} else {
-			alert("login failed");
+			toast.success("Logged In Successfully!");
+			navigate("/whiteboard");
+		} else if (data.error === "No user found") {
+			toast.error("Wrong Password");
+		} else if (data.error === "Invalid login") {
+			toast.error("No user found");
 		}
-
-		console.log(data);
 	}
 
 	return (
