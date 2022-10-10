@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -7,6 +7,11 @@ export const Signup = () => {
 	const [name, setName] = useState({ firstname: "", lastname: "" });
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		token ? navigate("/whiteboard") : navigate("/signup");
+	}, [navigate]);
 
 	async function registerUser(event) {
 		event.preventDefault();
