@@ -2,7 +2,7 @@
 
 ## Canvas Drawing App is a collaborative whiteboard app for drawing.
 
-![Whiteboard]()
+![Whiteboard](https://raw.githubusercontent.com/shraddha15-creator/whiteboard-assignment/main/frontend/src/assets/naya-whiteboard.png)
 
 It includes Frontend and Backend.
 
@@ -34,7 +34,7 @@ npm install
 npm start
 ```
 
-#### Backend will run on the _PORT:8080_
+#### Backend will run on the _PORT:8080_ (_You must have MongoDBCompass in your local machine_)
 
 #### Front will run on the _localhost:3000_
 
