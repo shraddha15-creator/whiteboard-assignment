@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import jwt from "jsonwebtoken";
 import CanvasDraw from "@win11react/react-canvas-draw";
+import jwt from "jsonwebtoken";
 import io from "socket.io-client";
-import "./pages.css";
-import { Panel } from "../components/Panel";
-import { Navbar } from "../components/Navbar";
+import { Panel, Navbar } from "../components";
 import { PrivateRoute } from "../utils/PrivateRoute";
+import "./styles/pages.css";
 
 let socket = io.connect("http://localhost:8080");
 

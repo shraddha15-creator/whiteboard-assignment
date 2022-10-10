@@ -13,7 +13,7 @@ export const Signup = () => {
 		token ? navigate("/whiteboard") : navigate("/signup");
 	}, [navigate]);
 
-	async function registerUser(event) {
+	const registerUser = async (event) => {
 		event.preventDefault();
 		const response = await fetch("http://localhost:8080/api/register", {
 			method: "POST",
@@ -30,7 +30,7 @@ export const Signup = () => {
 		} else if (data.status === "error") {
 			toast.warn("User already exist");
 		}
-	}
+	};
 
 	return (
 		<div className="auth-container">

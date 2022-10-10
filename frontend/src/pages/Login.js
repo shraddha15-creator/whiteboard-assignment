@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import "./auth.css";
+import "./styles/auth.css";
 
 export const Login = () => {
 	const navigate = useNavigate();
