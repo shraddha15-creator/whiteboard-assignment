@@ -2,6 +2,8 @@
 
 ## Canvas Drawing App is a collaborative whiteboard app for drawing.
 
+![Whiteboard]()
+
 It includes Frontend and Backend.
 
 <hr>
