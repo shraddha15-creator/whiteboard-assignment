@@ -45,7 +45,7 @@ export const Whiteboard = () => {
 
 	const handleExport = () => {
 		base16ImageData = canvasRef.current.canvasContainer.children[1].toDataURL();
-		const w = window.open("about:blank", "image from canvas");
+		const w = window.open(`about:${user}, image from canvas`);
 		const img = require("../assets/bg-transparent.png");
 		w.document.write(
 			"<img src='" +
@@ -86,7 +86,12 @@ export const Whiteboard = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<Panel handleExport={handleExport} />
+				<Panel
+					handleExport={handleExport}
+					color={color}
+					setColor={setColor}
+					user={user}
+				/>
 			</div>
 		</div>
 	);

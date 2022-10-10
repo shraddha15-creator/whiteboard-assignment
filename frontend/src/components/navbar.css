@@ -1,8 +1,13 @@
 .navbar{
-  /* background-color: rgb(253, 219, 219); */
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: .3rem 2rem;
-  background: rgb(246, 246, 246);
-  border-bottom: 1px solid rgb(210, 210, 210);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.naya-logo{
+  width:1.1rem;
+  height:1.1rem;
 }

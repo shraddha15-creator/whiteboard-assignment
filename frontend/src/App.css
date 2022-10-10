@@ -3,6 +3,15 @@
   padding: 0;
 }
 
+:root{
+  --primary-color : #4F00C1;
+  --primary-light : rgb(201, 149, 253);
+  --whiteboard-bg: rgb(243, 243, 243);
+  --nav-bg: rgb(247, 247, 247);
+  --border-light: rgb(210, 210, 210);
+  --gray: rgb(94, 94, 94);
+}
+
 .app-container{
   background: rgb(246, 246, 246);
 }
